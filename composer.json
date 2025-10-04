@@ -1,0 +1,26 @@
+{
+    "name": "fluentxlsx/fluentxlsx",
+    "description": "A fluent, developer-friendly PHP library that unifies the functionalities of SimpleXLSX (for reading Excel files) and SimpleXLSXGen (for writing Excel files).",
+    "type": "library",
+    "require": {
+        "shuchkin/simplexlsx": "^1.1",
+        "shuchkin/simplexlsxgen": "^1.5"
+    },
+    "require-dev": {
+        "shuchkin/simplexlsx": "^1.1",
+        "shuchkin/simplexlsxgen": "^1.5"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Fluentxlsx\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "israel-007",
+            "email": "abimboluoluyemi@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
