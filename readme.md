@@ -122,37 +122,6 @@ $value = $reader->cellEx(3, 2); // Row 3, Column 2 (B)
 $value = $reader->cellEx(3, 'B');
 ```
 
-### Write a new Excel file with multiple sheets
-
-```php
-use Fluentxlsx\Excel;
-
-Excel::write()
-    ->sheet('Students', [
-        ['ID', 'Name', 'Grade'],
-        [1, 'Alice', 'A'],
-        [2, 'Bob', 'B'],
-    ])
-    ->sheet('Teachers', [
-        ['ID', 'Name', 'Subject'],
-        [1, 'Mr. Smith', 'Math'],
-        [2, 'Ms. Johnson', 'Science'],
-    ])
-    ->save('school.xlsx');
-```
-
-### Download an Excel file to browser
-
-```php
-Excel::write()
-    ->sheet('Data', [
-        ['ID', 'Value'],
-        [1, 123],
-        [2, 456],
-    ])
-    ->download('data.xlsx');
-```
-
 ## Direct Access to SimpleXLSX Methods
 
 You can also use methods from the underlying SimpleXLSX library directly on the reader object returned by `Excel::read()`.  
