@@ -37,7 +37,7 @@ composer require fluentxlsx/fluentxlsx
 
 ## Usage Examples
 
-### Read an Excel file
+# Read an Excel file
 
 ```php
 use Fluentxlsx\Excel;
@@ -139,6 +139,145 @@ list($rows, $cols) = $reader->dimension();
 
 Other SimpleXLSX methods can be used in the same way.  
 Refer to the [SimpleXLSX documentation](https://github.com/shuchkin/simplexlsx#examples) for more details.
+
+# Write an Excel file
+
+```php
+use Excel\Excel;
+
+Excel::write()
+    ->addSheet('Users', [
+        ['ID', 'Name', 'Email'],
+        [1, 'John Doe', 'john@example.com'],
+        [2, 'Jane Doe', 'jane@example.com'],
+    ])
+    ->save('users.xlsx');
+
+    #This creates a file named users.xlsx with one sheet named Users.
+
+```
+
+## Creating and Managing Sheets
+
+### Add a new sheet
+
+```php
+Excel::write()
+    ->addSheet('Products', [
+        ['ID', 'Product Name', 'Price'],
+        [1, 'Keyboard', 45],
+        [2, 'Mouse', 25],
+    ])
+    ->save('products.xlsx');
+
+```
+
+### Add multiple sheets
+
+```php
+Excel::write()
+    ->addSheet('Customers', [['ID', 'Name'], [1, 'Alice']])
+    ->addSheet('Orders', [['OrderID', 'CustomerID'], [1, 1]])
+    ->save('sales.xlsx');
+
+```
+
+### Select an existing sheet to work with
+
+```php
+Excel::write()
+    ->sheet('Users')
+    ->cell('B2', 'David')
+    ->save('updated_users.xlsx');
+
+```
+- If sheet() is not called, the first sheet is selected by default.
+
+## Writing Cell Values
+
+### Write a value using Excel notation
+
+```php
+Excel::write()
+    ->sheet('Data')
+    ->cell('A1', 'Hello')
+    ->cell('B2', 123)
+    ->cell('C3', '=SUM(B2:B10)')
+    ->save('sheet.xlsx');
+
+```
+
+### Write using row/column coordinates
+
+```php
+Excel::write()
+    ->cellEx(3, 'B', 'Price')
+    ->cellEx(4, 'C', 100)
+    ->save('cells.xlsx');
+
+```
+- The cell() and cellEx() methods automatically create intermediate rows or columns if they don’t exist.
+
+## Writing Rows and Data Arrays
+
+### Add a single row
+
+```php
+Excel::write()
+    ->addRow(['Name', 'Email', 'Phone'])
+    ->addRow(['John', 'john@example.com', '12345'])
+    ->save('contacts.xlsx');
+
+```
+
+### Add multiple rows at once
+
+```php
+Excel::write()
+    ->rows([
+        ['ID', 'Name', 'Score'],
+        [1, 'Alice', 90],
+        [2, 'Bob', 85],
+    ])
+    ->save('scores.xlsx');
+
+```
+
+## Saving and Downloading
+
+### Save to file
+
+```php
+Excel::write()
+    ->addSheet('Sheet1', [['Name', 'Age'], ['John', 25]])
+    ->save('output.xlsx');
+
+```
+
+### Output to browser for download
+
+```php
+Excel::write()
+    ->addSheet('Report', [['Month', 'Revenue'], ['Jan', 1000]])
+    ->download('report.xlsx');
+
+```
+
+### Get binary data (e.g., to send as attachment)
+
+```php
+$data = Excel::write()
+    ->addSheet('Users', [['ID', 'Name'], [1, 'Raymond']])
+    ->toString();
+
+```
+
+## Accessing SimpleXLSXGen Directly
+
+You can also use methods from the underlying SimpleXLSXGen library directly on the reader object returned by `Excel::write()`.  
+This allows you to access advanced features or methods not wrapped by FluentXLSX.
+
+Refer to the [SimpleXLSXGen documentation](https://github.com/shuchkin/simplexlsxgen#examples) for more details.
 
 ## Contribution
 
